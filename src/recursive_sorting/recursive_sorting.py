@@ -54,15 +54,41 @@ def merge_sort(arr):
 
 # implement an in-place merge sort algorithm
 def merge_in_place(arr, start, mid, end):
-    # Your code here
+    start2 = mid + 1
+
+    if arr[mid] <= arr[start2]:
+        return
+
+    while start <= mid and start2 <= end:
+        if arr[start] <= arr[start2]:
+            start += 1
+        else:
+            value = arr[start2]
+            index = start2
+
+            while index != start:
+                arr[index] = arr[index - 1]
+                index -= 1
+            
+            arr[start] = value
+
+            start += 1
+            mid += 1
+            end += 1
 
 
     return arr
 
 
-def merge_sort_in_place(arr, l, r):
-    # Your code here
+def merge_sort_in_place(arr, left, right):
+    #base case
+    if left < right:
+        midpoint = left + (right - 1) // 2
 
+        merge_sort_in_place(arr, left, midpoint)
+        merge_sort_in_place(arr, midpoint + 1, right)
+
+        merge_in_place(arr, left, midpoint, right)
 
     return arr
 
@@ -74,5 +100,6 @@ def timsort(arr):
 
     return arr
 
-array = [9,7,8,3,2,1]
-print(merge_sort(array))
+arr = [12,11,13,5,6,7]
+arr_size = len(arr)
+print(merge_sort_in_place(arr, 0, arr_size - 1))
